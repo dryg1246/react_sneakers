@@ -1,17 +1,10 @@
 import Card from '../components/Card';
+import AppContext from "../context";
+import React from "react";
+function Favorites() {
 
-function Favorites({ items }) {
-    // Check if 'items' is undefined or null
-    if (!items || !items.length) {
-        return (
-            <div className="content p-40">
-                <div className="d-flex align-center justify-between mb-40">
-                    <h1>Favorites</h1>
-                </div>
-                <p>No items in favorites.</p>
-            </div>
-        );
-    }
+    const {favorites, onAddToFavorite } = React.useContext(AppContext)
+    console.log(favorites)
 
     return (
         <div className="content p-40">
@@ -19,12 +12,12 @@ function Favorites({ items }) {
                 <h1>Favorites</h1>
             </div>
             <div className="d-flex flex-wrap">
-                {items.map((item, index) => (
+                {favorites.map((item) => (
                     <Card
-                        key={index}
-                        title={item.title}
-                        price={item.price}
-                        imageUrl={item.imageUrl}
+                        key={item.id} // Use a unique identifier (e.g., item.id) as the key
+                        favorited={true}
+                        onAddToFavorite={onAddToFavorite}
+                        {...item}
                     />
                 ))}
             </div>
